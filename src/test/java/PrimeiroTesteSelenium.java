@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -62,6 +63,25 @@ public class PrimeiroTesteSelenium {
         driver.findElement(By.id("secondpassword")).sendKeys("123456");
 
         driver.findElement(By.id("imagesrc")).sendKeys("C:/Users/Pauli/Downloads/teste.jpg");//Upload de arquivo
+    }
+
+    @Test
+    public void desafioQA(){
+
+        driver.findElement(By.xpath("//a[normalize-space()='SwitchTo']")).click();
+        driver.findElement(By.xpath("//a[normalize-space()='Windows']")).click();
+        driver.findElement(By.xpath("//a[normalize-space()='Open New Seperate Windows']")).click();
+        driver.findElement(By.xpath("//button[@class='btn btn-primary']")).click();
+        Object[] windowHandles=driver.getWindowHandles().toArray();//Mapeia as janleas
+
+        System.out.println(windowHandles[0] +" - "+ windowHandles[1]);
+        driver.switchTo().window((String) windowHandles[1]);//faz a troca do contexto
+        Assert.assertTrue(driver.getCurrentUrl().equals("https://www.selenium.dev/"));
+
+
+
+
+
     }
 
     @After
