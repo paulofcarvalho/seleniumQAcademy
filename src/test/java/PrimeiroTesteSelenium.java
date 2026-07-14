@@ -1,5 +1,6 @@
 import org.junit.Assert;
 import org.junit.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -62,7 +63,7 @@ public class PrimeiroTesteSelenium {
         driver.findElement(By.id("firstpassword")).sendKeys("123456");
         driver.findElement(By.id("secondpassword")).sendKeys("123456");
 
-        driver.findElement(By.id("imagesrc")).sendKeys("C:/Users/Pauli/Downloads/teste.jpg");//Upload de arquivo
+        //driver.findElement(By.id("imagesrc")).sendKeys("C:/Users/Pauli/Downloads/teste.jpg");//Upload de arquivo
     }
 
     @Test
@@ -77,6 +78,31 @@ public class PrimeiroTesteSelenium {
         System.out.println(windowHandles[0] +" - "+ windowHandles[1]);
         driver.switchTo().window((String) windowHandles[1]);//faz a troca do contexto
         Assert.assertTrue(driver.getCurrentUrl().equals("https://www.selenium.dev/"));
+    }
+
+    @Test
+    public void validarNovaAba(){
+
+        driver.findElement(By.xpath("//a[normalize-space()='SwitchTo']")).click();
+        driver.findElement(By.xpath("//a[normalize-space()='Windows']")).click();
+        driver.findElement(By.xpath("//a[@href='http://www.selenium.dev']//button[@class='btn btn-info'][normalize-space()='click']")).click();
+        Object[] novaAba = driver.getWindowHandles().toArray();
+        driver.switchTo().window((String) novaAba[1]);
+        Assert.assertTrue(driver.getCurrentUrl().equals("https://www.selenium.dev/"));
+
+    }
+
+    @Test
+
+    public void testeAlerta()
+    {
+        driver.get("https://demo.automationtesting.in/Alerts.html");
+        driver.findElement(By.xpath("//button[@class='btn btn-danger']")).click();
+        Alert alert = driver.switchTo().alert();
+        String textAlert =  alert.getText();
+        Assert.assertEquals("I am an alert box!",textAlert);
+        alert.dismiss();
+        //driver.findElement(By.xpath("//button[contains(text(),'alert box:']")).click();
 
 
 
